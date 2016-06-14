@@ -12,10 +12,6 @@ was made available as an open-source platform in 2015. Under active
 development, Kong is now used in production at hundreds of organizations from
 startups, to large enterprises and government departments.
 
-The JWT upstream plugin has been developed to provide a JWT towards upstream APIs - registered on Kong - without worrying about the authentication plugin used by a consumer.
-
-More information can be found on the [jwt-up wiki page][jwt-up-doc]
-
 [Website Trust1Team][Trust1Team-url]
 
 [Website Kong][kong-url]

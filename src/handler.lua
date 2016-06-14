@@ -45,21 +45,21 @@ function JsonThreadProtectionHandler:access(config)
     end
 
     -----------------------------------
-    -- Validate the array element count
+    -- Validate the object entry count
     -----------------------------------
     if config.object_entry_count > 0 then
 
     end
 
     -----------------------------------
-    -- Validate the array element count
+    -- Validate the entry name length
     -----------------------------------
     if config.object_entry_name_length > 0 then
 
     end
 
     -----------------------------------
-    -- Validate the array element count
+    -- Validate the string value length
     -----------------------------------
     if config.string_value_length > 0 then
 

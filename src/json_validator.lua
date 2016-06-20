@@ -99,7 +99,7 @@ function JsonValidator.execute(body, container_depth, array_element_count, objec
 
     local status, json = pcall(cjson.decode, body)
     if not status then
-        return false, "Invalid container depth, max " .. container_depth .. " allowed."
+        return false, "Invalid JSON or invalid container depth, max " .. container_depth .. " allowed."
     end
 
     return validateJson(json, array_element_count, object_entry_count, object_entry_name_length, string_value_length)

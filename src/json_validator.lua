@@ -1,7 +1,5 @@
 local cjson = require "cjson"
 local string = require "string"
-local responses = require "kong.tools.responses"
-local cjson = require "cjson"
 
 local JsonValidator = {}
 
@@ -42,7 +40,7 @@ local function validateJson(json, array_element_count, object_entry_count, objec
         if array_element_count > 0 then
             local array_children = is_array(json)
             if array_children > array_element_count then
-                return responses.send_HTTP_BAD_REQUEST("Invalid array element count, max " .. array_element_count .. " allowed, found " .. array_children .. ".")
+                return false, "Invalid array element count, max " .. array_element_count .. " allowed, found " .. array_children .. "."
             end
         end
 
@@ -54,12 +52,15 @@ local function validateJson(json, array_element_count, object_entry_count, objec
             ------------------------------------
             if object_entry_name_length > 0 then
                 if string.len(k) > object_entry_name_length then
-                    return responses.send_HTTP_BAD_REQUEST("Invalid object entry name length, max " .. object_entry_name_length .. " allowed, found " .. string.len(k) .. " (" .. k .. ").")
+                    return false, "Invalid object entry name length, max " .. object_entry_name_length .. " allowed, found " .. string.len(k) .. " (" .. k .. ")."
                 end
             end
 
             -- recursively repeat the same procedure
-            validateJson(v, array_element_count, object_entry_count, object_entry_name_length, string_value_length)
+            local result, message = validateJson(v, array_element_count, object_entry_count, object_entry_name_length, string_value_length)
+            if result == false then
+                return false, message
+            end
         end
 
         -------------------------------------
@@ -67,7 +68,7 @@ local function validateJson(json, array_element_count, object_entry_count, objec
         -------------------------------------
         if object_entry_count > 0 then
             if children_count > object_entry_count then
-                return responses.send_HTTP_BAD_REQUEST("Invalid object entry count, max " .. object_entry_count .. " allowed, found " .. children_count .. ".")
+                return false, "Invalid object entry count, max " .. object_entry_count .. " allowed, found " .. children_count .. "."
             end
         end
 
@@ -77,7 +78,7 @@ local function validateJson(json, array_element_count, object_entry_count, objec
         --------------------------------------
         if string_value_length > 0 then
             if string.len(json) > string_value_length then
-                return responses.send_HTTP_BAD_REQUEST("Invalid string value length, max " .. string_value_length .. " allowed, found " .. string.len(json) .. " (" .. json .. ").")
+                return false, "Invalid string value length, max " .. string_value_length .. " allowed, found " .. string.len(json) .. " (" .. json .. ")."
             end
         end
     end
@@ -97,10 +98,10 @@ function JsonValidator.execute(body, container_depth, array_element_count, objec
 
     local status, json = pcall(cjson.decode, body)
     if not status then
-        return responses.send_HTTP_BAD_REQUEST("Invalid container depth, max " .. container_depth .. " allowed.")
+        return false, "Invalid container depth, max " .. container_depth .. " allowed."
     end
 
-    validateJson(json, array_element_count, object_entry_count, object_entry_name_length, string_value_length)
+    return validateJson(json, array_element_count, object_entry_count, object_entry_name_length, string_value_length)
 end
 
 return JsonValidator

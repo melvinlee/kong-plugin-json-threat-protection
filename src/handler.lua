@@ -46,7 +46,12 @@ function JsonThreadProtectionHandler:access(config)
             return responses.send_OK()
         end
 
-        json_validator.execute(body, config.container_depth, config.array_element_count, config.object_entry_count, config.object_entry_name_length, config.string_value_length)
+        local result, message = json_validator.execute(body, config.container_depth, config.array_element_count, config.object_entry_count, config.object_entry_name_length, config.string_value_length)
+        if result == true then
+            return responses.send_HTTP_OK()
+        else
+            return responses.send_HTTP_BAD_REQUEST(message)
+        end
     end
 
     return responses.send_HTTP_OK()

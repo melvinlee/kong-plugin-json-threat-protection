@@ -33,7 +33,6 @@ end
 
 local function validateJson(json, array_element_count, object_entry_count, object_entry_name_length, string_value_length)
     if type(json) == "table" then
-
         --------------------------------------
         -- Validate the array element count --
         --------------------------------------
@@ -82,6 +81,8 @@ local function validateJson(json, array_element_count, object_entry_count, objec
             end
         end
     end
+
+    return true, ""
 end
 
 ------------------------------

@@ -18,6 +18,7 @@ startups, to large enterprises and government departments.
 
 ## Summary
 
+Like XML-based services, APIs that support JavaScript object notation (JSON) are vulnerable to content-level attacks. Simple JSON attacks attempt to use structures that overwhelm JSON parsers to crash a service and induce application-level denial-of-service attacks. All settings are optional and should be tuned to optimize your service requirements against potential vulnerabilities.
 Only works from Kong 0.8.0
 
 ## Roadmap
@@ -26,7 +27,42 @@ TBD
 
 ## Development
 
-TBD
+## Configuration Parameters
+
+fields = {
+    array_element_count = { required = false, type = "number" },
+    container_depth = { required = false, type = "number" },
+    object_entry_count = { required = false, type = "number" },
+    object_entry_name_length = { required = false, type = "number" },
+    source = { required = false, type = "array", enum = {"request", "response", "message"} },
+    string_value_length = { required = false, type = "number" }
+}
+
+| key                      | default value | required | description                                                                                                                                                                                                                                                                                                                                                                                    |
+|--------------------------|---------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| array_element_count      | 0             | FALSE    | Specifies the maximum number of elements allowed in an array. If you do not specify this element, or if you specify a negative integer, the system does not enforce a limit.                                                                                                                                                                                                                   |
+| container_depth          | 0             | FALSE    | Specifies the maximum allowed containment depth, where the containers are objects or arrays. For example, an array containing an object which contains an object would result in a containment depth of 3. If you do not specify this element, or if you specify a negative integer, the system does not enforce any limit.                                                                    |
+| object_entry_count       | 0             | FALSE    | Specifies the maximum number of entries allowed in an object. If you do not specify this element, or if you specify a negative integer, the system does not enforce any limit.                                                                                                                                                                                                                 |
+| object_entry_name_length | 0             | FALSE    | Specifies the maximum string length allowed for a property name within an object. If you do not specify this element, or if you specify a negative integer, the system does not enforce any limit.                                                                                                                                                                                             |
+| source                   | request       | FALSE    | Message to be screened for JSON payload attacks. This is most commonly set to request, as you will typically need to validate inbound requests from client apps. When set to message, this element will automatically evaluate the request message when attached to the request flow and the response message when attached to the response flow. Valid values: request, response, or message. |
+| string_value_length      | 0             | FALSE    | Specifies the maximum length allowed for a string value. If you do not specify this element, or if you specify a negative integer, the system does not enforce a limit.                                                                                                                                                                                                                        |
+
+## Errors
+
+The default format for error codes returned by Policies is:
+{ 
+    "message": "{Error message}"
+}
+The JSONThreatProtection Policy types defines the following error messages:
+
+| Message                                                                                                                 |
+|-------------------------------------------------------------------------------------------------------------------------|
+| JSONThreatProtection[ExceededContainerDepth]: Exceeded container depth, max X allowed, found Y.                         |
+| JSONThreatProtection[ExceededObjectEntryCount]: Exceeded object entry count, max X allowed, found Y.                    |
+| JSONThreatProtection[ExceededArrayElementCount]: Exceeded array element count, max X allowed, found Y.                  |
+| JSONThreatProtection[ExceededObjectEntryNameLength]: Exceeded object entry name length, max X allowed, found Y (VALUE). |
+| JSONThreatProtection[ExceededStringValueLength]: Exceeded string value length, max X allowed, found Y (VALUE)           |
+| JSONThreatProtection[ExecutionFailed]: Execution failed. reason: X                                                      |
 
 ## License
 

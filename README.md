@@ -1,4 +1,4 @@
-# JWT Upstream plugin for Kong
+# JSON Threat Protection plugin for Kong
 [![][t1t-logo]][Trust1Team-url]
 
 Kong is a scalable, open source API Layer *(also known as an API Gateway, or
@@ -19,6 +19,7 @@ startups, to large enterprises and government departments.
 ## Summary
 
 Like XML-based services, APIs that support JavaScript object notation (JSON) are vulnerable to content-level attacks. Simple JSON attacks attempt to use structures that overwhelm JSON parsers to crash a service and induce application-level denial-of-service attacks. All settings are optional and should be tuned to optimize your service requirements against potential vulnerabilities.
+
 Only works from Kong 0.8.0
 
 ## Roadmap
@@ -29,14 +30,6 @@ TBD
 
 ## Configuration Parameters
 
-fields = {
-    array_element_count = { required = false, type = "number" },
-    container_depth = { required = false, type = "number" },
-    object_entry_count = { required = false, type = "number" },
-    object_entry_name_length = { required = false, type = "number" },
-    source = { required = false, type = "array", enum = {"request", "response", "message"} },
-    string_value_length = { required = false, type = "number" }
-}
 
 | key                      | default value | required | description                                                                                                                                                                                                                                                                                                                                                                                    |
 |--------------------------|---------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -49,10 +42,6 @@ fields = {
 
 ## Errors
 
-The default format for error codes returned by Policies is:
-{ 
-    "message": "{Error message}"
-}
 The JSONThreatProtection Policy types defines the following error messages:
 
 | Message                                                                                                                 |

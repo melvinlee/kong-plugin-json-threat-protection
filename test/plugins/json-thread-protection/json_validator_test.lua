@@ -29,7 +29,7 @@ describe("Json Thread Protection Validator Test Suite", function()
         status, message = jtp.execute(json, 10, 10, 10, 10, 10)
 
         assert.equal(status, false)
-        assert.equal(message, "Invalid JSON or invalid container depth, max 10 allowed.")
+        assert.equal(message, "JSONThreatProtection[ExecutionFailed]: Execution failed. reason: invalid JSON")
     end)
 
     it("Test with invalid ignored container depth", function()
@@ -45,7 +45,7 @@ describe("Json Thread Protection Validator Test Suite", function()
         status, message = jtp.execute(json, 2, 10, 10, 10, 10)
 
         assert.equal(status, false)
-        assert.equal(message, "Invalid JSON or invalid container depth, max 2 allowed.")
+        assert.equal(message, "JSONThreatProtection[ExceededContainerDepth]: Exceeded container depth, max 2 allowed.")
     end)
 
     it("Test with invalid ignored array element count", function()
@@ -61,7 +61,7 @@ describe("Json Thread Protection Validator Test Suite", function()
         status, message = jtp.execute(json, 10, 2, 10, 10, 10)
 
         assert.equal(status, false)
-        assert.equal(message, "Invalid array element count, max 2 allowed, found 3.")
+        assert.equal(message, "JSONThreatProtection[ExceededArrayElementCount]: Exceeded array element count, max 2 allowed, found 3.")
     end)
 
     it("Test with invalid ignored object entry count", function()
@@ -77,7 +77,7 @@ describe("Json Thread Protection Validator Test Suite", function()
         status, message = jtp.execute(json, 10, 10, 2, 10, 10)
 
         assert.equal(status, false)
-        assert.equal(message, "Invalid object entry count, max 2 allowed, found 4.")
+        assert.equal(message, "JSONThreatProtection[ExceededObjectEntryCount]: Exceeded object entry count, max 2 allowed, found 4.")
     end)
 
     it("Test with invalid ignored object name length", function()
@@ -93,7 +93,7 @@ describe("Json Thread Protection Validator Test Suite", function()
         status, message = jtp.execute(json, 10, 10, 10, 5, 10)
 
         assert.equal(status, false)
-        assert.equal(message, "Invalid object entry name length, max 5 allowed, found 12 (longlongname).")
+        assert.equal(message, "JSONThreatProtection[ExceededObjectEntryNameLength]: Exceeded object entry name length, max 5 allowed, found 12 (longlongname).")
     end)
 
     it("Test with invalid ignored string value length", function()
@@ -109,6 +109,6 @@ describe("Json Thread Protection Validator Test Suite", function()
         status, message = jtp.execute(json, 10, 10, 10, 10, 5)
 
         assert.equal(status, false)
-        assert.equal(message, "Invalid string value length, max 5 allowed, found 22 (this value is too long).")
+        assert.equal(message, "JSONThreatProtection[ExceededStringValueLength]: Exceeded string value length, max 5 allowed, found 22 (this value is too long).")
     end)
 end)

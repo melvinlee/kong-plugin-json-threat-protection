@@ -1,4 +1,5 @@
 local cjson = require "cjson"
+local cjson_safe = require "cjson.safe"
 local string = require "string"
 
 local JsonValidator = {}
@@ -39,7 +40,7 @@ local function validateJson(json, array_element_count, object_entry_count, objec
         if array_element_count > 0 then
             local array_children = is_array(json)
             if array_children > array_element_count then
-                return false, "Invalid array element count, max " .. array_element_count .. " allowed, found " .. array_children .. "."
+                return false, "JSONThreatProtection[ExceededArrayElementCount]: Exceeded array element count, max " .. array_element_count .. " allowed, found " .. array_children .. "."
             end
         end
 
@@ -51,7 +52,7 @@ local function validateJson(json, array_element_count, object_entry_count, objec
             ------------------------------------
             if object_entry_name_length > 0 then
                 if string.len(k) > object_entry_name_length then
-                    return false, "Invalid object entry name length, max " .. object_entry_name_length .. " allowed, found " .. string.len(k) .. " (" .. k .. ")."
+                    return false, "JSONThreatProtection[ExceededObjectEntryNameLength]: Exceeded object entry name length, max " .. object_entry_name_length .. " allowed, found " .. string.len(k) .. " (" .. k .. ")."
                 end
             end
 
@@ -67,7 +68,7 @@ local function validateJson(json, array_element_count, object_entry_count, objec
         -------------------------------------
         if object_entry_count > 0 then
             if children_count > object_entry_count then
-                return false, "Invalid object entry count, max " .. object_entry_count .. " allowed, found " .. children_count .. "."
+                return false, "JSONThreatProtection[ExceededObjectEntryCount]: Exceeded object entry count, max " .. object_entry_count .. " allowed, found " .. children_count .. "."
             end
         end
 
@@ -77,7 +78,7 @@ local function validateJson(json, array_element_count, object_entry_count, objec
         --------------------------------------
         if string_value_length > 0 then
             if string.len(json) > string_value_length then
-                return false, "Invalid string value length, max " .. string_value_length .. " allowed, found " .. string.len(json) .. " (" .. json .. ")."
+                return false, "JSONThreatProtection[ExceededStringValueLength]: Exceeded string value length, max " .. string_value_length .. " allowed, found " .. string.len(json) .. " (" .. json .. ")."
             end
         end
     end
@@ -90,16 +91,25 @@ end
 ------------------------------
 
 function JsonValidator.execute(body, container_depth, array_element_count, object_entry_count, object_entry_name_length, string_value_length)
-    -------------------------------
-    -- Validate the container depth
-    -------------------------------
+
+    ----------------------------
+    -- Validate if valid JSON --
+    ----------------------------
+    local valid = cjson_safe.decode(body)
+    if not valid then
+        return false, "JSONThreatProtection[ExecutionFailed]: Execution failed. reason: invalid JSON"
+    end
+
+    ----------------------------------
+    -- Validate the container depth --
+    ----------------------------------
     if container_depth > 0 then
         cjson.decode_max_depth(container_depth)
     end
 
     local status, json = pcall(cjson.decode, body)
     if not status then
-        return false, "Invalid JSON or invalid container depth, max " .. container_depth .. " allowed."
+        return false, "JSONThreatProtection[ExceededContainerDepth]: Exceeded container depth, max " .. container_depth .. " allowed."
     end
 
     return validateJson(json, array_element_count, object_entry_count, object_entry_name_length, string_value_length)

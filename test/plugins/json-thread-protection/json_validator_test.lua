@@ -28,8 +28,8 @@ describe("Json Thread Protection Validator Test Suite", function()
         local json = "{ \"te \"value\" }"
         status, message = jtp.execute(json, 10, 10, 10, 10, 10)
 
-        assert.equal(status, false)
-        assert.equal(message, "JSONThreatProtection[ExecutionFailed]: Execution failed. reason: invalid JSON")
+        assert.equal(status, true)
+        assert.equal(message, "")
     end)
 
     it("Test with invalid ignored container depth", function()

@@ -97,7 +97,7 @@ function JsonValidator.execute(body, container_depth, array_element_count, objec
     ----------------------------
     local valid = cjson_safe.decode(body)
     if not valid then
-        return false, "JSONThreatProtection[ExecutionFailed]: Execution failed. reason: invalid JSON"
+        return true, ""
     end
 
     ----------------------------------

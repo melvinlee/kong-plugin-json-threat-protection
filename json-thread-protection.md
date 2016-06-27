@@ -4,12 +4,13 @@ title: Plugins - Json Threat Protection
 header_title: Json Threat Protection
 header_icon: /assets/images/icons/plugins/jsonthreadprotection.png
 breadcrumbs:
-    Plugins: /plugins
+  Plugins: /plugins
 nav:
-    - label: Getting Started
+  - label: Getting Started
+  - label: Usage
     items:
-        - label: Terminology
-        - label: Configuration
+      - label: Terminology
+      - label: Configuration
 ---
 
 Like XML-based services, APIs that support JavaScript object notation (JSON) are vulnerable to content-level attacks. Simple JSON attacks attempt to use structures that overwhelm JSON parsers to crash a service and induce application-level denial-of-service attacks. All settings are optional and should be tuned to optimize your service requirements against potential vulnerabilities.
@@ -20,7 +21,6 @@ Like XML-based services, APIs that support JavaScript object notation (JSON) are
 
 - `API`: your upstream service, for which Kong proxies requests to.
 - `Plugin`: a plugin executes actions inside Kong during the request/response lifecycle.
-- `Consumer`: a developer or service using the API. When using Kong, a Consumer authenticates itself with Kong which proxies every call to the upstream API.
 
 ----
 

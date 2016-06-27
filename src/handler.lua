@@ -1,11 +1,11 @@
 local stringy = require "stringy"
 local responses = require "kong.tools.responses"
-local json_validator = require "kong.plugins.json-thread-protection.json_validator"
+local json_validator = require "kong.plugins.json-threat-protection.json_validator"
 local BasePlugin = require "kong.plugins.base_plugin"
 
-local JsonThreadProtectionHandler = BasePlugin:extend()
+local JsonThreatProtectionHandler = BasePlugin:extend()
 
-JsonThreadProtectionHandler.PRIORITY = 500
+JsonThreatProtectionHandler.PRIORITY = 500
 
 ---------------
 -- Constants --
@@ -30,12 +30,12 @@ end
 -- Plugin implementation --
 ---------------------------
 
-function JsonThreadProtectionHandler:new()
-    JsonThreadProtectionHandler.super.new(self, "JSON Thread Protection")
+function JsonThreatProtectionHandler:new()
+    JsonThreatProtectionHandler.super.new(self, "JSON Threat Protection")
 end
 
-function JsonThreadProtectionHandler:access(config)
-    JsonThreadProtectionHandler.super.access(self)
+function JsonThreatProtectionHandler:access(config)
+    JsonThreatProtectionHandler.super.access(self)
 
     local is_json = stringy.startswith(get_content_type(), APPLICATION_JSON)
     if is_json then
@@ -57,5 +57,5 @@ function JsonThreadProtectionHandler:access(config)
     return responses.send_HTTP_OK()
 end
 
-return JsonThreadProtectionHandler
+return JsonThreatProtectionHandler
 

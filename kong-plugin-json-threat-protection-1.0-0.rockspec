@@ -1,12 +1,12 @@
-package = "kong-plugin-json-thread-protection"
+package = "kong-plugin-json-threat-protection"
 version = "1.0-0"
 supported_platforms = {"linux", "macosx"}
 source = {
-  url = "git://github.com/Trust1Team/kong-plugin-json-thread-protection",
+  url = "git://github.com/Trust1Team/kong-plugin-json-threat-protection",
   tag = "1.0.0"
 }
 description = {
-  summary = "The Kong JSON Thread Protection plugin.",
+  summary = "The Kong JSON Threat Protection plugin.",
   license = "MIT",
   homepage = "http://www.trust1team.com",
   detailed = [[
@@ -21,8 +21,8 @@ dependencies = {
 build = {
   type = "builtin",
   modules = {
-    ["kong.plugins.json-thread-protection.handler"] = "src/handler.lua",
-    ["kong.plugins.json-thread-protection.schema"] = "src/schema.lua",
-    ["kong.plugins.json-thread-protection.json_validator"] = "src/json_validator.lua"
+    ["kong.plugins.json-threat-protection.handler"] = "src/handler.lua",
+    ["kong.plugins.json-threat-protection.schema"] = "src/schema.lua",
+    ["kong.plugins.json-threat-protection.json_validator"] = "src/json_validator.lua"
   }
 }

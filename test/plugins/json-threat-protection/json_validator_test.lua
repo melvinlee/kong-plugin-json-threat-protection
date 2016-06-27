@@ -1,11 +1,11 @@
-describe("Json Thread Protection Validator Test Suite", function()
+describe("Json Threat Protection Validator Test Suite", function()
 
     local jtp
     local status
     local message
 
     setup(function()
-        jtp = require "kong.plugins.json-thread-protection.json_validator"
+        jtp = require "kong.plugins.json-threat-protection.json_validator"
         status = nil
         message = nil
     end)

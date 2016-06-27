@@ -22,6 +22,7 @@ build = {
   type = "builtin",
   modules = {
     ["kong.plugins.json-thread-protection.handler"] = "src/handler.lua",
-    ["kong.plugins.json-thread-protection.schema"] = "src/schema.lua"
+    ["kong.plugins.json-thread-protection.schema"] = "src/schema.lua",
+    ["kong.plugins.json-thread-protection.json_validator"] = "src/json_validator.lua"
   }
 }

@@ -31,6 +31,11 @@ Configuring the plugin is straightforward, you can add it on top of an [API][api
 ```bash
 $ curl -X POST http://kong:8001/apis/{api}/plugins \
 --data "name=json-threat-protection"
+--data "config.array_element_count=0" \
+--data "config.container_depth=0" \
+--data "config.object_entry_count=0" \
+--data "config.object_entry_name_length=0" \
+--data "config.string_value_length=0"
 ```
 
 `api`: The `id` or `name` of the API that this plugin configuration will target

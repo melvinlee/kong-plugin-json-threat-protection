@@ -30,7 +30,6 @@ TBD
 
 ## Configuration Parameters
 
-
 | key                      | default value | required | description                                                                                                                                                                                                                                                                                                                                                                                    |
 |--------------------------|---------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | array_element_count      | 0             | FALSE    | Specifies the maximum number of elements allowed in an array. If you do not specify this element, or if you specify a negative integer, the system does not enforce a limit.                                                                                                                                                                                                                   |

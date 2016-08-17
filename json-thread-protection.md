@@ -2,7 +2,7 @@
 id: page-plugin
 title: Plugins - Json Threat Protection
 header_title: Json Threat Protection
-header_icon: /assets/images/icons/plugins/jsonthreadprotection.png
+header_icon: /_assets/images/icons/plugins/json-threat-prot.png
 breadcrumbs:
   Plugins: /plugins
 nav:

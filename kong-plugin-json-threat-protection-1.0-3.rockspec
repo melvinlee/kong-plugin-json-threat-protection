@@ -1,9 +1,9 @@
 package = "kong-plugin-json-threat-protection"
-version = "1.0-2"
+version = "1.0-3"
 supported_platforms = {"linux", "macosx"}
 source = {
   url = "git://github.com/Trust1Team/kong-plugin-json-threat-protection",
-  tag = "1.0.2"
+  tag = "1.0.3"
 }
 description = {
   summary = "The Kong JSON Threat Protection plugin.",
@@ -16,7 +16,8 @@ description = {
   ]],
 }
 dependencies = {
-  "lua ~> 5.1"
+  "lua ~> 5.1",
+  "stringy ~> 0.4-1"
 }
 build = {
   type = "builtin",

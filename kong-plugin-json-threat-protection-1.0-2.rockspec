@@ -16,7 +16,8 @@ description = {
   ]],
 }
 dependencies = {
-  "lua ~> 5.1"
+  "lua ~> 5.1",
+  "stringy ~> 0.4-1"
 }
 build = {
   type = "builtin",

@@ -1,5 +1,4 @@
 local stringy = require "stringy"
-local responses = require "kong.tools.responses"
 local json_validator = require "kong.plugins.json-threat-protection.json_validator"
 local BasePlugin = require "kong.plugins.base_plugin"
 
@@ -43,18 +42,18 @@ function JsonThreatProtectionHandler:access(config)
         local body = ngx.req.get_body_data()
 
         if not body then
-            return responses.send_OK()
+            return kong.response.exit(200)
         end
 
         local result, message = json_validator.execute(body, config.container_depth, config.array_element_count, config.object_entry_count, config.object_entry_name_length, config.string_value_length)
         if result == true then
-            return responses.send_HTTP_OK()
+            return kong.response.exit(200)
         else
-            return responses.send_HTTP_BAD_REQUEST(message)
+            return kong.response.exit(400, message)
         end
     end
 
-    return responses.send_HTTP_OK()
+    return kong.response.exit(200)
 end
 
 return JsonThreatProtectionHandler
